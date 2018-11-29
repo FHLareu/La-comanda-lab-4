@@ -1,0 +1,181 @@
+<simple-notifications [options]="options"></simple-notifications>
+
+<img src="../../../assets/img/spinner.gif" [ngClass]="{'spinner':true,'ocultar':ocultarSpinner}" />
+
+<ng-container *ngIf="pedidosParaConfirmar.length > 0 && (usuario.tipo == 'mozo' || usuario.tipo == 'socio')">
+
+  <h1>Lista de pedidos para confirmar</h1>
+
+  <table mat-table [dataSource]="pedidosParaConfirmar" class="mat-elevation-z8">
+
+    <ng-container matColumnDef="codigo">
+      <th mat-header-cell *matHeaderCellDef> Código </th>
+      <td mat-cell *matCellDef="let element">{{element.codigo}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="mesa">
+      <th mat-header-cell *matHeaderCellDef> Mesa </th>
+      <td mat-cell *matCellDef="let element"> {{element.mesa}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="cliente">
+      <th mat-header-cell *matHeaderCellDef> Cliente </th>
+      <td mat-cell *matCellDef="let element"> {{element.apellido_cliente}}, {{element.nombre_cliente}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="accion">
+      <th mat-header-cell *matHeaderCellDef> Acción </th>
+      <td mat-cell *matCellDef="let element"> <button (click)="ConfirmarPedido(element.codigo)" *ngIf="usuario.tipo != 'socio'">Confirmar</button> </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>
+
+</ng-container>
+
+<ng-container *ngIf="pedidosParaEntregar.length > 0 && (usuario.tipo == 'mozo' || usuario.tipo == 'socio')">
+
+  <h1>Lista de pedidos para entregar</h1>
+
+  <table mat-table [dataSource]="pedidosParaEntregar" class="mat-elevation-z8">
+
+    <ng-container matColumnDef="codigo">
+      <th mat-header-cell *matHeaderCellDef> Código </th>
+      <td mat-cell *matCellDef="let element">{{element.codigo}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="mesa">
+      <th mat-header-cell *matHeaderCellDef> Mesa </th>
+      <td mat-cell *matCellDef="let element"> {{element.mesa}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="cliente">
+      <th mat-header-cell *matHeaderCellDef> Cliente </th>
+      <td mat-cell *matCellDef="let element"> {{element.apellido_cliente}}, {{element.nombre_cliente}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="accion">
+      <th mat-header-cell *matHeaderCellDef> Acción </th>
+      <td mat-cell *matCellDef="let element: let i = index;"> <button (click)="EntregarPedido(i)" *ngIf="usuario.tipo != 'socio'">Entregar</button> </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>
+
+</ng-container>
+
+<ng-container *ngIf="pedidosParaPreparar.length > 0 && (usuario.tipo == 'cocinero' || usuario.tipo == 'bartender' || usuario.tipo == 'cervecero' || usuario.tipo == 'socio')">
+
+  <h1>Lista de pedidos para preparar</h1>
+
+  <ng-container *ngFor="let item of pedidosParaPreparar">
+
+    <h2>Pedidos de la mesa {{item.mesa}}</h2>
+
+    <ng-container *ngFor="let subItem of item.pedido">
+
+      <div class="pedidos" *ngIf="subItem.tipo == usuario.tipo">
+
+        <span>Nombre: {{subItem.nombre}}</span><br />
+        <span>Cantidad: {{subItem.cantidad}}</span>
+      </div>
+
+    </ng-container>
+
+    <div *ngIf="usuario.tipo == 'cocinero'">
+
+      <button style="width: 40px; margin-left: 10px;" (click)="Restar(item)">-</button>
+      <span class="cantidad">{{item.minutos}} minutos</span>
+      <button style="width: 40px; margin-right: 20px;" (click)="Sumar(item)">+</button>
+      <button (click)="SetearTiempo(item)">Establecer tiempo</button>
+
+    </div>
+
+    <button style="margin-left: 10px;" (click)="TerminarPedido(item)" *ngIf="usuario.tipo == 'bartender' || usuario.tipo == 'cervecero'">Terminar</button>
+
+  </ng-container>
+
+  <ng-container *ngIf="usuario.tipo == 'socio'">
+    <table mat-table [dataSource]="pedidosParaPreparar" class="mat-elevation-z8">
+
+      <ng-container matColumnDef="codigo">
+        <th mat-header-cell *matHeaderCellDef> Código </th>
+        <td mat-cell *matCellDef="let element">{{element.codigo}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="mesa">
+        <th mat-header-cell *matHeaderCellDef> Mesa </th>
+        <td mat-cell *matCellDef="let element"> {{element.mesa}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="cliente">
+        <th mat-header-cell *matHeaderCellDef> Cliente </th>
+        <td mat-cell *matCellDef="let element"> {{element.apellido_cliente}}, {{element.nombre_cliente}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="accion">
+        <th mat-header-cell *matHeaderCellDef> Acción </th>
+        <td mat-cell *matCellDef="let element"> <button>Algo</button> </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+  </ng-container>
+
+</ng-container>
+
+<ng-container *ngIf="pedidosParaTerminar.length > 0 && (usuario.tipo == 'cocinero' || usuario.tipo == 'bartender' || usuario.tipo == 'cervecero' || usuario.tipo == 'socio')">
+
+  <ng-container *ngIf="pedidosParaTerminar.length > 0 && (usuario.tipo == 'cocinero' || usuario.tipo == 'bartender' || usuario.tipo == 'cervecero')">
+
+    <h1>Lista de pedidos para terminar</h1>
+
+    <ng-container *ngFor="let item of pedidosParaTerminar">
+
+      <h2>Pedidos de la mesa {{item.mesa}}</h2>
+
+      <ng-container *ngFor="let subItem of item.pedido">
+
+        <div class="pedidos" *ngIf="subItem.tipo == usuario.tipo">
+
+          <span>Nombre: {{subItem.nombre}}</span><br />
+          <span>Cantidad: {{subItem.cantidad}}</span>
+        </div>
+
+      </ng-container>
+
+      <button style="margin-left: 10px;" (click)="TerminarPedido(item)">Terminar</button>
+
+    </ng-container>
+
+    <!-- <table mat-table [dataSource]="pedidosParaTerminar" class="mat-elevation-z8">
+
+    <ng-container matColumnDef="codigo">
+      <th mat-header-cell *matHeaderCellDef> Código </th>
+      <td mat-cell *matCellDef="let element">{{element.codigo}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="mesa">
+      <th mat-header-cell *matHeaderCellDef> Mesa </th>
+      <td mat-cell *matCellDef="let element"> {{element.mesa}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="cliente">
+      <th mat-header-cell *matHeaderCellDef> Cliente </th>
+      <td mat-cell *matCellDef="let element"> {{element.apellido_cliente}}, {{element.nombre_cliente}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="accion">
+      <th mat-header-cell *matHeaderCellDef> Acción </th>
+      <td mat-cell *matCellDef="let element"> <button>Algo</button> </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </table> -->
+
+
+  </ng-container>

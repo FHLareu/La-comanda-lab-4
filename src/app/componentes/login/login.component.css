@@ -1,0 +1,23 @@
+* { overflow: hidden; }
+
+.container {
+    color: white;
+    background-color: rgba(0, 0, 0, .4) !important;
+}
+
+h1 {
+    font-family: "great vibes";
+    font-size: 60px;
+    border-bottom: solid 1px white;
+    padding-left: 30px;
+    padding-right: 30px;
+    text-align: center;
+}
+
+a:link {
+    color: blue;
+}
+
+a:visited {
+    color: #B3DCEE;
+}

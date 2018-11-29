@@ -1,0 +1,41 @@
+<simple-notifications [options]="options"></simple-notifications>
+
+<img src="../../../assets/img/spinner.gif" [ngClass]="{'spinner':true,'ocultar':ocultarSpinner}" />
+
+<img src="../../../assets/img/menu.png" class="menu" />
+
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+  <ng-container matColumnDef="imagen">
+    <th mat-header-cell *matHeaderCellDef> Imagen </th>
+    <td mat-cell *matCellDef="let element">
+      <img src="../../../assets/img/{{element.imagen}}" class="pedido" />
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="nombre">
+    <th mat-header-cell *matHeaderCellDef> Nombre </th>
+    <td mat-cell *matCellDef="let element"> {{element.nombre}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="precio">
+    <th mat-header-cell *matHeaderCellDef> Precio </th>
+    <td mat-cell *matCellDef="let element"> ${{element.precio}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="cantidad">
+    <th mat-header-cell *matHeaderCellDef> Cantidad </th>
+    <td mat-cell *matCellDef="let element; let i = index;">
+      <button (click)="Restar(i)">-</button>
+      <span class="cantidad">{{element.cantidad}}</span>
+      <button (click)="Sumar(i)">+</button>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+</table>
+
+<h1 class="total">TOTAL <span>$ {{total}}</span> </h1>
+
+<button (click)="HacerPedido()" class="hacer-pedido">Hacer pedido</button>

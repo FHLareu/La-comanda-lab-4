@@ -1,0 +1,31 @@
+<simple-notifications [options]="options"></simple-notifications>
+
+<img src="../../../assets/img/spinner.gif" [ngClass]="{'spinner':true,'ocultar':ocultarSpinner}" />
+
+<div class="container opacidad">
+
+    <div class="background">
+        <img src="../../../assets/img/login-bgn.jpg" />
+    </div>
+
+    <h1>Iniciar sesión</h1>
+
+    <input type="email" placeholder="Correo electrónico" [(ngModel)]="correo" autofocus />
+    <input type="password" placeholder="Contraseña" [(ngModel)]="clave" />
+
+    <select [(ngModel)]="slcUsuario" (click)="SetearUsuario()">
+        <option disabled selected>Selecciona un usuario</option>
+        <option value="0">Socio</option>
+        <option value="1">Mozo</option>
+        <option value="2">Cocinero</option>
+        <option value="3">Bartender</option>
+        <option value="4">Cervecero</option>
+        <option value="5">Cliente</option>
+        <option value="6">Cliente 2</option>
+    </select>
+
+    <span>¿No tienes una cuenta? <a routerLink="/registro" routerLinkActive="active">Registrate</a></span>
+
+    <button (click)="Logear()">Iniciar sesión</button>
+
+</div>

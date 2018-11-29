@@ -1,0 +1,34 @@
+<simple-notifications [options]="options"></simple-notifications>
+
+<img src="../../../assets/img/spinner.gif" [ngClass]="{'spinner':true,'ocultar':ocultarSpinner}" />
+
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+  <ng-container matColumnDef="codigo">
+    <th mat-header-cell *matHeaderCellDef> Código </th>
+    <td mat-cell *matCellDef="let element"> {{element.codigo}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="estado">
+    <th mat-header-cell *matHeaderCellDef> Estado </th>
+    <td mat-cell *matCellDef="let element"> {{element.estado}} </td>
+  </ng-container>
+
+  <ng-container *ngIf="usuario.tipo == 'socio'">
+    <ng-container matColumnDef="cliente">
+      <th mat-header-cell *matHeaderCellDef> Cliente </th>
+      <td mat-cell *matCellDef="let element"> {{element.cliente}} </td>
+    </ng-container>
+  </ng-container>
+
+  <ng-container matColumnDef="accion">
+    <th mat-header-cell *matHeaderCellDef> Acción </th>
+    <td mat-cell *matCellDef="let element">
+      <button (click)="OcuparMesa(element.codigo)" *ngIf="usuario.tipo == 'cliente'">Ocupar mesa</button>
+      <button (click)="CerrarMesa(element)" *ngIf="usuario.tipo == 'socio' && element.estado == 'para cerrar'">Cerrar mesa</button>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>

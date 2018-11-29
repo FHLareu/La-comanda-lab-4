@@ -1,0 +1,71 @@
+.grid-container {
+  padding: 20px;
+  background-image: url('../../../assets/img/principal-bgn.jpg');
+}
+
+.mat-h1 {
+  text-align: center;
+  background-color: #CF4946;
+  color: white;
+  font-family: lobster;
+  margin-left: 15px;
+  margin-right: 15px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.dashboard-card {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  right: 15px;
+  bottom: 15px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  cursor: pointer;
+}
+
+.mat-card {
+  padding: 0 !important;
+}
+
+.mat-card > img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: .3s
+}
+
+.texto {
+  position: absolute;
+  z-index: 10;
+  width: 100%;
+  height: 100%;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, .4);
+  left: 0;
+  top: 0;
+  color: white;
+}
+
+.mat-card:hover > img {
+  filter: blur(4px);
+}
+
+.mat-card:hover > .texto {
+  display: flex;
+}
+
+.more-button {
+  position: absolute;
+  top: 5px;
+  right: 10px;
+}
+
+.dashboard-card-content {
+  text-align: center;
+}
