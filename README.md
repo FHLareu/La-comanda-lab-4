@@ -1,7 +1,7 @@
 # Trabajo practico: "La comanda"
 
 Este repositorio contiene la resolucion del trabajo practico final para la materia Laboratorio IV.<br />
-**Anotacion:** En el caso de que se eliga [000Webhost](https://ar.000webhost.com/) como servidor para alojar este proyecto, se debera incluir el siguiente archivo [.htaccess](https://github.com/1caruxx/La-comanda-lab-4/blob/master/.htaccess) en el directorio "public_html" para poder navergar a traves de la barra de direcciones del navegador.
+**Anotacion:** En el caso de que se eliga [000Webhost](https://ar.000webhost.com/) como servidor para alojar este proyecto, se debera incluir el siguiente archivo [.htaccess](https://github.com/FHLareu/La-comanda-lab-4/blob/master/.htaccess) en el directorio "public_html" para poder navergar a traves de la barra de direcciones del navegador.
 
 ## Lenguajes
 
@@ -66,4 +66,4 @@ Los lenguajes utilizados fueron:
 
 ## Autor
 
-* Fernando Lareu - [1caruxx](https://github.com/1caruxx)
+* Fernando Lareu - [FHLareu](https://github.com/FHLareu)
